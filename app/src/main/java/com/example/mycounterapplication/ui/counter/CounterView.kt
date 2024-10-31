@@ -17,6 +17,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 //import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,7 +30,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun CounterView(){
 
-    var counter: Int =0
+    val counter= remember{ mutableStateOf(0) }
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,7 +43,7 @@ fun CounterView(){
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = counter.toString(),
+                text = counter.value.toString(),
                 fontSize = 124.sp,
                 textAlign = TextAlign.Center,
                 modifier = Modifier
@@ -55,12 +57,12 @@ fun CounterView(){
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { counter+=1 },
+            Button(onClick = { counter.value+=1 },
                 modifier = Modifier.weight(1f)) {
                 Text("+1")
             }
             Spacer(modifier = Modifier.width(8.dp))
-            Button(onClick = { counter-=1 },
+            Button(onClick = { counter.value-=1 },
                 modifier = Modifier.weight(1f),
                 shape = RoundedCornerShape(4.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -71,7 +73,7 @@ fun CounterView(){
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Button(onClick = { counter=0},
+        Button(onClick = { counter.value=0},
             shape = RoundedCornerShape(16.dp),
             colors = ButtonDefaults.buttonColors(containerColor = Color.DarkGray)
         ) {
